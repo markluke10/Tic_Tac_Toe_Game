@@ -1,3 +1,5 @@
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.Scanner;
 
 public class TicTacToe {
@@ -9,7 +11,7 @@ public class TicTacToe {
     }
 
     TicTacToe() {
-        printBoard(gameBoard);
+        welcomeBoard(welcomeBoard);
         while (true) {
             playersTurnP1(gameBoard);
             if (checkGameOutcome(gameBoard))
@@ -23,22 +25,45 @@ public class TicTacToe {
     }
 
 //------------------------------------------------------------
+//      WELCOME GAME BOARD
+//------------------------------------------------------------
+
+    static char[][] welcomeBoard = {
+            {'1', '2', '3'},
+            {'4', '5', '6'},
+            {'7', '8', '9'}
+    };
+
+//------------------------------------------------------------
 //      CREATE GAME BOARD
 //------------------------------------------------------------
 
     static char[][] gameBoard = {
-            {'_', '_', '_'},
-            {'_', '_', '_'},
-            {'_', '_', '_'}
+            {' ', ' ', ' '},
+            {' ', ' ', ' '},
+            {' ', ' ', ' '}
     };
 
 //------------------------------------------------------------
-//      PRINTING THE GAME BOARD
+//      PRINTING THE GAME BOARDS
 //------------------------------------------------------------
 
+    private static void welcomeBoard(char[][] welcomeBoard) {
+        System.out.println("+------------------------+");
+        System.out.println("| Welcome to TIC TAC TOE |");
+        System.out.println("+------------------------+");
+        System.out.println("Enter a number that corresponds to a point on the board as show in the example below.\n");
+        System.out.println(welcomeBoard[0][0] + "|" + welcomeBoard[0][1] + "|" + welcomeBoard[0][2]);
+        System.out.println("-----");
+        System.out.println(welcomeBoard[1][0] + "|" + welcomeBoard[1][1] + "|" + welcomeBoard[1][2]);
+        System.out.println("-----");
+        System.out.println(welcomeBoard[2][0] + "|" + welcomeBoard[2][1] + "|" + welcomeBoard[2][2]);
+    }
     private static void printBoard(char[][] gameBoard) {
         System.out.println(gameBoard[0][0] + "|" + gameBoard[0][1] + "|" + gameBoard[0][2]);
+        System.out.println("-----");
         System.out.println(gameBoard[1][0] + "|" + gameBoard[1][1] + "|" + gameBoard[1][2]);
+        System.out.println("-----");
         System.out.println(gameBoard[2][0] + "|" + gameBoard[2][1] + "|" + gameBoard[2][2]);
     }
 
@@ -67,14 +92,14 @@ public class TicTacToe {
 //------------------------------------------------------------
 
     private void playersTurnP1(char[][] gameBoard) {
-        System.out.println("Player 1, please choose a square between 1-9 to play on");
+        System.out.println("\nPlayer 1, please choose a square between 1-9 to play on");
         int playerInput;
         while (true) {
             playerInput = scanner.nextInt();
             if (isMoveValid(gameBoard, playerInput)) {
                 break;
             } else {
-                System.out.println("Player 1, this is not a valid a valid move, please choose a different number between 1-9.");
+                System.out.println("\nInvalid move, this space has already been taken. Player 1, please choose a different number between 1-9.");
             }
         }
         placeCounter(gameBoard, playerInput, 'X');
@@ -85,14 +110,14 @@ public class TicTacToe {
 //------------------------------------------------------------
 
     private void playersTurnP2(char[][] gameBoard) {
-        System.out.println("Player 2, please choose a square between 1-9 to play on");
+        System.out.println("\nPlayer 2, please choose a square between 1-9 to play on");
         int playerInput;
         while (true) {
             playerInput = scanner.nextInt();
             if (isMoveValid(gameBoard, playerInput)) {
                 break;
             } else {
-                System.out.println("Player 2, this is not a valid a valid move, please choose a different number between 1-9.");
+                System.out.println("\nInvalid move, this space has already been taken. Player 2, please choose a different number between 1-9.");
             }
         }
         placeCounter(gameBoard, playerInput, 'O');
@@ -121,15 +146,15 @@ public class TicTacToe {
 
     private static boolean isMoveValid(char[][] gameBoard, int position) {
         return switch (position) {
-            case 1 -> (gameBoard[0][0] == '_');
-            case 2 -> (gameBoard[0][1] == '_');
-            case 3 -> (gameBoard[0][2] == '_');
-            case 4 -> (gameBoard[1][0] == '_');
-            case 5 -> (gameBoard[1][1] == '_');
-            case 6 -> (gameBoard[1][2] == '_');
-            case 7 -> (gameBoard[2][0] == '_');
-            case 8 -> (gameBoard[2][1] == '_');
-            case 9 -> (gameBoard[2][2] == '_');
+            case 1 -> (gameBoard[0][0] == ' ');
+            case 2 -> (gameBoard[0][1] == ' ');
+            case 3 -> (gameBoard[0][2] == ' ');
+            case 4 -> (gameBoard[1][0] == ' ');
+            case 5 -> (gameBoard[1][1] == ' ');
+            case 6 -> (gameBoard[1][2] == ' ');
+            case 7 -> (gameBoard[2][0] == ' ');
+            case 8 -> (gameBoard[2][1] == ' ');
+            case 9 -> (gameBoard[2][2] == ' ');
             default -> false;
         };
     }
@@ -141,20 +166,28 @@ public class TicTacToe {
     private static boolean checkGameOutcome(char[][] gameBoard) {
         if (hasAPlayerWon(gameBoard, 'X')) {
             printBoard(gameBoard);
-            System.out.println("We have a WINNER! Congratulations to Player 1.");
-            System.out.println("Game Over");
+            System.out.println("+----------------------------------------------+");
+            System.out.println("| We have a WINNER! Congratulations to Player 1|");
+            System.out.println("+----------------------------------------------+");
+            System.out.println("+-----------+");
+            System.out.println("| Game Over |");
+            System.out.println("+-----------+");
             return true;
         }
         if (hasAPlayerWon(gameBoard, 'O')) {
             printBoard(gameBoard);
-            System.out.println("We have a WINNER! Congratulations to Player 2.");
-            System.out.println("Game Over");
+            System.out.println("+----------------------------------------------+");
+            System.out.println("| We have a WINNER! Congratulations to Player 2|");
+            System.out.println("+----------------------------------------------+");
+            System.out.println("+-----------+");
+            System.out.println("| Game Over |");
+            System.out.println("+-----------+");
             return true;
         }
 
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard[i].length; j++) {
-                if (gameBoard[i][j] == '_') {
+                if (gameBoard[i][j] == ' ') {
                     return false;
                 }
             }

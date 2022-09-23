@@ -1,5 +1,4 @@
-import org.w3c.dom.ls.LSOutput;
-
+import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToe {
@@ -18,6 +17,7 @@ public class TicTacToe {
                 break;
             printBoard(gameBoard);
             playersTurnP2(gameBoard);
+//            computersTurn();
             if (checkGameOutcome(gameBoard))
                 break;
             printBoard(gameBoard);
@@ -59,6 +59,7 @@ public class TicTacToe {
         System.out.println("-----");
         System.out.println(welcomeBoard[2][0] + "|" + welcomeBoard[2][1] + "|" + welcomeBoard[2][2]);
     }
+
     private static void printBoard(char[][] gameBoard) {
         System.out.println(gameBoard[0][0] + "|" + gameBoard[0][1] + "|" + gameBoard[0][2]);
         System.out.println("-----");
@@ -127,18 +128,19 @@ public class TicTacToe {
 //      COMPUTER'S TURN
 //------------------------------------------------------------
 
-//        private void computersTurn() {
-//            Random random = new Random();
-//            int computersTurn;
-//            while (true) {
-//                computersTurn = random.nextInt(9) + 1;
-//                if (isMoveValid(gameBoard, computersTurn)) {
-//                    break;
-//                }
+//    private void computersTurn() {
+//        Random random = new Random();
+//        int computersTurn;
+//        while (true) {
+//            computersTurn = random.nextInt(9) + 1;
+//            if (isMoveValid(gameBoard, computersTurn)) {
+//                break;
 //            }
-//            placeCounter(gameBoard, computersTurn, 'O');
-//            printBoard(gameBoard);
 //        }
+//        System.out.println("Computer");
+//        placeCounter(gameBoard, computersTurn, 'O');
+//
+//    }
 
 //------------------------------------------------------------
 //      CHECKING IF VALID MOVE
@@ -160,15 +162,30 @@ public class TicTacToe {
     }
 
 //------------------------------------------------------------
+//      CHECKING FOR A WINNER IN THE GAME
+//------------------------------------------------------------
+
+    private static boolean hasAPlayerWon(char[][] gameBoard, char symbol) {
+        return (gameBoard[0][0] == symbol && gameBoard[0][1] == symbol && gameBoard[0][2] == symbol) ||
+                (gameBoard[1][0] == symbol && gameBoard[1][1] == symbol && gameBoard[1][2] == symbol) ||
+                (gameBoard[2][0] == symbol && gameBoard[2][1] == symbol && gameBoard[2][2] == symbol) ||
+                (gameBoard[0][0] == symbol && gameBoard[1][0] == symbol && gameBoard[2][0] == symbol) ||
+                (gameBoard[0][1] == symbol && gameBoard[1][1] == symbol && gameBoard[2][1] == symbol) ||
+                (gameBoard[0][2] == symbol && gameBoard[1][2] == symbol && gameBoard[2][2] == symbol) ||
+                (gameBoard[0][0] == symbol && gameBoard[1][1] == symbol && gameBoard[2][2] == symbol) ||
+                (gameBoard[0][2] == symbol && gameBoard[1][1] == symbol && gameBoard[2][0] == symbol);
+    }
+
+//------------------------------------------------------------
 //      DEFINE THE OUTCOME OF THE GAME
 //------------------------------------------------------------
 
     private static boolean checkGameOutcome(char[][] gameBoard) {
         if (hasAPlayerWon(gameBoard, 'X')) {
             printBoard(gameBoard);
-            System.out.println("+----------------------------------------------+");
-            System.out.println("| We have a WINNER! Congratulations to Player 1|");
-            System.out.println("+----------------------------------------------+");
+            System.out.println("+-----------------------------------------------+");
+            System.out.println("| We have a WINNER! Congratulations to Player 1 |");
+            System.out.println("+-----------------------------------------------+");
             System.out.println("+-----------+");
             System.out.println("| Game Over |");
             System.out.println("+-----------+");
@@ -176,9 +193,9 @@ public class TicTacToe {
         }
         if (hasAPlayerWon(gameBoard, 'O')) {
             printBoard(gameBoard);
-            System.out.println("+----------------------------------------------+");
-            System.out.println("| We have a WINNER! Congratulations to Player 2|");
-            System.out.println("+----------------------------------------------+");
+            System.out.println("+-----------------------------------------------+");
+            System.out.println("| We have a WINNER! Congratulations to Player 2 |");
+            System.out.println("+-----------------------------------------------+");
             System.out.println("+-----------+");
             System.out.println("| Game Over |");
             System.out.println("+-----------+");
@@ -193,24 +210,13 @@ public class TicTacToe {
             }
         }
         printBoard(gameBoard);
-        System.out.println("This game ended in in DRAW!");
-        System.out.println("Game Over");
+        System.out.println("+-----------------------------+");
+        System.out.println("| This game ended in in DRAW! |");
+        System.out.println("+-----------------------------+");
+        System.out.println("+-----------+");
+        System.out.println("| Game Over |");
+        System.out.println("+-----------+");
         return true;
-    }
-
-//------------------------------------------------------------
-//      CHECKING FOR A WINNER IN THE GAME
-//------------------------------------------------------------
-
-    private static boolean hasAPlayerWon(char[][] gameBoard, char symbol) {
-        return (gameBoard[0][0] == symbol && gameBoard[0][1] == symbol && gameBoard[0][2] == symbol) ||
-                (gameBoard[1][0] == symbol && gameBoard[1][1] == symbol && gameBoard[1][2] == symbol) ||
-                (gameBoard[2][0] == symbol && gameBoard[2][1] == symbol && gameBoard[2][2] == symbol) ||
-                (gameBoard[0][0] == symbol && gameBoard[1][0] == symbol && gameBoard[2][0] == symbol) ||
-                (gameBoard[0][1] == symbol && gameBoard[1][1] == symbol && gameBoard[2][1] == symbol) ||
-                (gameBoard[0][2] == symbol && gameBoard[1][2] == symbol && gameBoard[2][2] == symbol) ||
-                (gameBoard[0][0] == symbol && gameBoard[1][1] == symbol && gameBoard[2][2] == symbol) ||
-                (gameBoard[0][2] == symbol && gameBoard[1][1] == symbol && gameBoard[2][0] == symbol);
     }
 }
 

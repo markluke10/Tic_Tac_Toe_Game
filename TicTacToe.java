@@ -51,6 +51,8 @@ public class TicTacToe {
     private static void welcomeBoard(char[][] welcomeBoard) {
         System.out.println("+------------------------+");
         System.out.println("| Welcome to TIC TAC TOE |");
+        System.out.println("|           by           |");
+        System.out.println("|      Mark Wharmby      |");
         System.out.println("+------------------------+");
         System.out.println("Enter a number that corresponds to a point on the board as show in the example below.\n");
         System.out.println(welcomeBoard[0][0] + "|" + welcomeBoard[0][1] + "|" + welcomeBoard[0][2]);
